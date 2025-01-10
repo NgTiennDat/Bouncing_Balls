@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 import pygame
 import numpy as np
 import math
@@ -36,6 +38,7 @@ remove_sound = pygame.mixer.Sound("remove.mp3")
 WIDTH = 800
 HEIGHT = 800
 window = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Bouncing Balls")
 clock = pygame.time.Clock()
 BLACK = (0, 0, 0)
 ORANGE = (255, 165, 0)
