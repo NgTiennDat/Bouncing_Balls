@@ -28,10 +28,10 @@ def draw_arc(window, center, radius, start_angle, end_angle):
     pygame.draw.polygon(window, BLACK, [center, p1, p2], 0)
 
 pygame.init()
-# pygame.mixer.init()
-#
-# bounce_sound = pygame.mixer.Sound("bounce.wav")
-# remove_sound = pygame.mixer.Sound("remove.wav")
+pygame.mixer.init()
+
+bounce_sound = pygame.mixer.Sound("bounce.mp3")
+remove_sound = pygame.mixer.Sound("remove.mp3")
 
 WIDTH = 800
 HEIGHT = 800
@@ -43,7 +43,7 @@ RED = (255, 0, 0)
 CIRCLE_CENTER = np.array([WIDTH / 2, HEIGHT / 2], dtype=np.float64)
 CIRCLE_RADIUS = 150
 BALL_RADIUS = 5
-ball_pos = np.array([WIDTH / 2, HEIGHT / 2 - 120], dtype=np.float64)
+ball_pos = np.array([WIDTH / 2, HEIGHT / 2 - 130], dtype=np.float64)
 GRAVITY = 0.2
 ball_vel = np.array([0,0], dtype=np.float64)
 arc_degrees = 60
@@ -81,7 +81,7 @@ while running:
                 proj_v_t = (np.dot(ball.v, t)/np.dot(t, t)) * t
                 ball.v = 2 * proj_v_t - ball.v
                 ball.v += t * spinning_speed # v = rw (w: spinning speed)
-                # pygame.mixer.Sound.play(bounce_sound)
+                pygame.mixer.Sound.play(bounce_sound)
 
     window.fill(BLACK)
     pygame.draw.circle(window, ORANGE, CIRCLE_CENTER, CIRCLE_RADIUS, 3)
