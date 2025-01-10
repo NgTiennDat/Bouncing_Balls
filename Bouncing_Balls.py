@@ -1,5 +1,3 @@
-from tkinter.font import names
-
 import pygame
 import numpy as np
 import math
@@ -54,6 +52,10 @@ start_angle = math.radians(-arc_degrees/2)
 end_angle = math.radians(arc_degrees/2)
 spinning_speed = 0.01
 balls = [Ball(ball_pos, ball_vel)]
+score = 0
+font = pygame.font.SysFont("Arial", 36)
+
+start_time = pygame.time.get_ticks()
 running = True
 
 while running:
@@ -63,6 +65,25 @@ while running:
 
     start_angle += spinning_speed
     end_angle += spinning_speed
+
+    current_time = (pygame.time.get_ticks() - start_time) // 1000
+    if current_time % 3 == 0 and current_time > 0:
+        spinning_speed += 0.0001
+        arc_degrees = max(10, arc_degrees - 0.1)
+        start_angle = start_angle
+        end_angle = start_angle + math.radians(arc_degrees)
+
+    if arc_degrees <= 10:
+        window.fill(BLACK)
+        game_over_text = font.render("Game Over!", True, RED)
+        score_text = font.render(f"Score: {score}", True, ORANGE)
+        window.blit(game_over_text, (WIDTH // 2 - 100, HEIGHT // 2 - 50))
+        window.blit(score_text, (WIDTH // 2 - 100, HEIGHT // 2 + 10))
+        pygame.display.flip()
+        pygame.time.delay(3000)  # Dừng màn hình trong 3 giây
+        running = False
+        break
+
     for ball in balls:
         if(ball.pos[1] > HEIGHT or ball.pos[0] < 0 or ball.pos[0] > WIDTH or ball.pos[1] < 0):
             balls.remove(ball)
@@ -75,6 +96,7 @@ while running:
 
         if dist + BALL_RADIUS > CIRCLE_RADIUS:
             if is_ball_in_arc(ball.pos, CIRCLE_CENTER, start_angle, end_angle):
+                score = score + 1
                 ball.is_in = False
             if ball.is_in:
                 d = ball.pos - CIRCLE_CENTER
@@ -91,6 +113,13 @@ while running:
     draw_arc(window, CIRCLE_CENTER, CIRCLE_RADIUS, start_angle, end_angle)
     for ball in balls:
         pygame.draw.circle(window, ball.color, ball.pos, BALL_RADIUS)
+
+    score_text = font.render(str(score), True, ORANGE)
+    window.blit(score_text, (700, 0))
+
+    time_text = font.render(str(current_time), True, ORANGE)
+    window.blit(time_text, (0, 0))
+
     pygame.display.flip()
     clock.tick(60)
 
