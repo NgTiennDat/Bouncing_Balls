@@ -54,8 +54,8 @@ spinning_speed = 0.01
 balls = [Ball(ball_pos, ball_vel)]
 score = 0
 font = pygame.font.SysFont("Arial", 36)
-
 start_time = pygame.time.get_ticks()
+
 running = True
 
 while running:
@@ -122,5 +122,4 @@ while running:
 
     pygame.display.flip()
     clock.tick(60)
-
 pygame.quit()
