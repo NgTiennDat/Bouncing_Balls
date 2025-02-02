@@ -33,8 +33,8 @@ pygame.mixer.init()
 bounce_sound = pygame.mixer.Sound("bounce.mp3")
 remove_sound = pygame.mixer.Sound("remove.mp3")
 
-WIDTH = 800
-HEIGHT = 800
+WIDTH = 1000
+HEIGHT = 1000
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Bouncing Balls")
 clock = pygame.time.Clock()
